@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+# React Movies App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project use [FortniteAPI](https://fortniteapi.io/).
+
+To run and use this project you need to have a api key. To [get the api key](https://fortniteapi.io/) you need to register and create an account.
+
+After you get api key you should create in root folder `.env.local` file and add one environment variable: `REACT_APP_API_KEY=[YOUR_APIKEY]`. [Read more](https://create-react-app.dev/docs/adding-custom-environment-variables/) about adding custom environment variables.
+
+Link: [React Ahop App](https://evgeniyasirotkina.github.io/shop-fortniteapi/)
+![изображение](https://user-images.githubusercontent.com/47915167/148110404-011ae51a-0587-4fd6-8286-1be03cebd11c.png)
+
+
+--------
 
 ## Available Scripts
 
@@ -13,11 +23,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
