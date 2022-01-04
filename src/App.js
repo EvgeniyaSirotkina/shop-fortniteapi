@@ -1,12 +1,12 @@
 import Header from './cmponents/Header';
 import Footer from './cmponents/Footer';
-import Main from './cmponents/Main';
+import Shop from './cmponents/Shop';
 
 const App = () => {
   return (
     <>
       <Header />
-      <Main />
+      <Shop />
       <Footer />
     </>
   );
