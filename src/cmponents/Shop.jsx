@@ -7,6 +7,7 @@ import CartIcon from './CartIcon';
 const Shop = () => {
     const [goods, setGoods] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [orderList, setOrderList] = useState([]);
 
     useEffect(function getGoods() {
         fetch(API_URL, {
@@ -28,7 +29,7 @@ const Shop = () => {
 
     return (
         <main className='container content'>
-            <CartIcon quantity={1} />
+            <CartIcon quantity={orderList.length} />
             {
                 !isLoaded ? <Preloader /> : <GoodsList goodsList={goods} />
             }
