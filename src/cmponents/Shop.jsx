@@ -9,6 +9,33 @@ const Shop = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [orderList, setOrderList] = useState([]);
 
+    const addToCart = (item) => {
+        const itemIndex = orderList.findIndex(
+            (orderItem) => orderItem.id === item.id
+        );
+
+        if (itemIndex < 0) {
+            const newItem = {
+                ...item,
+                quantity: 1,
+            };
+            setOrderList([...orderList, newItem]);
+        } else {
+            const newOrder = orderList.map((orderItem, index) => {
+                if (index === itemIndex) {
+                    return {
+                        ...orderItem,
+                        quantity: orderItem.quantity + 1,
+                    };
+                } else {
+                    return orderItem;
+                }
+            });
+
+            setOrderList(newOrder);
+        }
+    }
+
     useEffect(function getGoods() {
         fetch(API_URL, {
             headers: {
@@ -31,7 +58,7 @@ const Shop = () => {
         <main className='container content'>
             <CartIcon quantity={orderList.length} />
             {
-                !isLoaded ? <Preloader /> : <GoodsList goodsList={goods} />
+                !isLoaded ? <Preloader /> : <GoodsList goodsList={goods} addToCart={addToCart} />
             }
         </main>
     );

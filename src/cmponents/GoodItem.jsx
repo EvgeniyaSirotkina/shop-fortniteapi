@@ -1,5 +1,5 @@
 const goodsItem = (props) => {
-    const { goodsItem, price } = props;
+    const { goodsItem, price, addToCart = Function.prototype } = props;
 
     return goodsItem && (
         <div className="card">
@@ -14,7 +14,14 @@ const goodsItem = (props) => {
                 <p>{goodsItem.description}</p>
             </div>
             <div className="card-action">
-                <button className="waves-effect waves-light btn-small">
+                <button
+                    className="waves-effect waves-light btn-small"
+                    onClick={() => addToCart({
+                        id: goodsItem.id,
+                        name: goodsItem.name,
+                        price: price.regularPrice
+                    })}
+                >
                     <i className="material-icons left">attach_money</i>
                     <span className="good-price">{price.regularPrice}</span>
                 </button>
