@@ -1,4 +1,4 @@
-# React Movies App
+# React Shop App
 
 This project use [FortniteAPI](https://fortniteapi.io/).
 
