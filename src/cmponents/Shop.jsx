@@ -4,12 +4,14 @@ import Preloader from './Preloader';
 import GoodsList from './GoodsList';
 import CartIcon from './CartIcon';
 import CartList from './CartList';
+import Alert from './Alert';
 
 const Shop = () => {
     const [goods, setGoods] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [orderList, setOrderList] = useState([]);
     const [isCartDisplayed, setIsCartDisplayed] = useState(false);
+    const [alertName, setAlertName] = useState('');
 
     const handleCartDisplayed = () => {
         setIsCartDisplayed(!isCartDisplayed);
@@ -44,6 +46,7 @@ const Shop = () => {
 
             setOrderList(newOrder);
         }
+        setAlertName(item.name);
     }
 
     const removeFromCart = (id) => {
@@ -80,6 +83,10 @@ const Shop = () => {
         setOrderList(newOrder.filter(item => item.quantity > 0));
     }
 
+    const closeAlert = (id) => {
+        setAlertName('');
+    }
+
     useEffect(function getGoods() {
         fetch(API_URL, {
             headers: {
@@ -100,6 +107,7 @@ const Shop = () => {
 
     return (
         <main className='container content'>
+            { alertName && <Alert name={alertName} closeAlert={closeAlert} /> }
             {
                 !isCartDisplayed
                     ? <CartIcon quantity={getNumberOfPurchases()} handleCartDisplayed={handleCartDisplayed} />
@@ -111,7 +119,6 @@ const Shop = () => {
                         decQuantity={decQuantity}
                     />
             }
-
             {
                 !isLoaded ? <Preloader /> : <GoodsList goodsList={goods} addToCart={addToCart} />
             }
