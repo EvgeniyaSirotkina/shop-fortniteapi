@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { API_KEY, API_URL } from '../config'
-import Preloader from './Preloader'
-import GoodsList from './GoodsList'
+import { API_KEY, API_URL } from '../config';
+import Preloader from './Preloader';
+import GoodsList from './GoodsList';
+import CartIcon from './CartIcon';
 
 const Shop = () => {
     const [goods, setGoods] = useState([]);
@@ -27,6 +28,7 @@ const Shop = () => {
 
     return (
         <main className='container content'>
+            <CartIcon quantity={1} />
             {
                 !isLoaded ? <Preloader /> : <GoodsList goodsList={goods} />
             }
