@@ -37,11 +37,11 @@ nav, footer {
 }
 
 .btn-small {
-  background-color: #ff6d00;
+  background-color: #ff6d00 !important;
 }
 
 .btn-small:hover {
-  background-color: #ffd180;
+  background-color: #ffd180 !important;
   color: #000;
 }
 
@@ -54,8 +54,16 @@ nav, footer {
   padding: .5rem;
   position: fixed;
   right: 2rem;
-  top: calc(2rem + 64px);
+  bottom: 2rem;
   cursor: pointer;
+  z-index: 5;
+}
+
+@media (min-width: 767px) {
+  .cart-icon {
+    top: 5.5rem;
+    bottom: unset;
+  }
 }
 
 .cart-icon i {
