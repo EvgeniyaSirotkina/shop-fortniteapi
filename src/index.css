@@ -6,3 +6,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+nav, footer {
+  padding: 0 1rem;
+}
+
+.content {
+  min-height: calc(100vh - 64px - 70px);
+}
+
+.goods {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}

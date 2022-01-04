@@ -1,7 +1,14 @@
-function App() {
+import Header from './cmponents/Header';
+import Footer from './cmponents/Footer';
+import Main from './cmponents/Main';
+
+const App = () => {
   return (
-    <div>
-    </div>
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
   );
 }
 
