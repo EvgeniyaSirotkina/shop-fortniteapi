@@ -36,13 +36,21 @@ nav, footer {
   font-weight: 600;
 }
 
-.btn-small {
-  background-color: #ff6d00 !important;
+.btn-small,
+.active {
+  background-color: #ff9100 !important;
 }
 
 .btn-small:hover {
   background-color: #ffd180 !important;
   color: #000;
+}
+
+.cart-quantity,
+.cart-delete {
+  color: #ff9100 !important;
+  cursor: pointer;
+  vertical-align: middle;
 }
 
 .cart-icon {
@@ -66,10 +74,27 @@ nav, footer {
   }
 }
 
+.cart-quantity-value,
 .cart-icon i {
   color: #fff;
 }
 
-.cart-quantity {
+.cart-list {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  max-width: 95%;
+  width: 50rem;
+  box-shadow: unset -1px 3px 8px 5px #ffd180, 2px 5px 16px 0px #ff9100, 5px 5px 15px 5px #000;
+  z-index: 5;
+}
+
+.cart-close {
+  cursor: pointer;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
   color: #fff;
 }

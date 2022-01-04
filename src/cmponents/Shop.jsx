@@ -3,11 +3,21 @@ import { API_KEY, API_URL } from '../config';
 import Preloader from './Preloader';
 import GoodsList from './GoodsList';
 import CartIcon from './CartIcon';
+import CartList from './CartList';
 
 const Shop = () => {
     const [goods, setGoods] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [orderList, setOrderList] = useState([]);
+    const [isCartDisplayed, setIsCartDisplayed] = useState(false);
+
+    const handleCartDisplayed = () => {
+        setIsCartDisplayed(!isCartDisplayed);
+    }
+
+    const getNumberOfPurchases = () => {
+        return orderList.map(item => item.quantity).reduce((acc, el) => acc + el, 0);
+    }
 
     const addToCart = (item) => {
         const itemIndex = orderList.findIndex(
@@ -36,6 +46,40 @@ const Shop = () => {
         }
     }
 
+    const removeFromCart = (id) => {
+        setOrderList(orderList.filter(item => item.id !== id));
+    }
+
+    const incQuantity = (id) => {
+        const newOrder = orderList.map((el) => {
+            if (el.id === id) {
+                const newQuantity = el.quantity + 1;
+                return {
+                    ...el,
+                    quantity: newQuantity,
+                };
+            } else {
+                return el;
+            }
+        });
+        setOrderList(newOrder);
+    }
+
+    const decQuantity = (id) => {
+        const newOrder = orderList.map((el) => {
+            if (el.id === id) {
+                const newQuantity = el.quantity - 1;
+                return {
+                    ...el,
+                    quantity: newQuantity > 0 ? newQuantity : 0,
+                };
+            } else {
+                return el;
+            }
+        });
+        setOrderList(newOrder.filter(item => item.quantity > 0));
+    }
+
     useEffect(function getGoods() {
         fetch(API_URL, {
             headers: {
@@ -56,7 +100,18 @@ const Shop = () => {
 
     return (
         <main className='container content'>
-            <CartIcon quantity={orderList.length} />
+            {
+                !isCartDisplayed
+                    ? <CartIcon quantity={getNumberOfPurchases()} handleCartDisplayed={handleCartDisplayed} />
+                    : <CartList
+                        orderList={orderList}
+                        handleCartDisplayed={handleCartDisplayed}
+                        removeFromCart={removeFromCart}
+                        incQuantity={incQuantity}
+                        decQuantity={decQuantity}
+                    />
+            }
+
             {
                 !isLoaded ? <Preloader /> : <GoodsList goodsList={goods} addToCart={addToCart} />
             }

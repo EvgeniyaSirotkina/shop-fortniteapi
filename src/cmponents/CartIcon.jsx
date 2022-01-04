@@ -1,11 +1,11 @@
 const CartIcon = (props) => {
-    const { quantity } = props;
+    const { quantity, handleCartDisplayed = Function.prototype } = props;
 
     return (
-        <div className="cart-icon circle orange accent-4">
+        <div className="cart-icon circle orange accent-4" onClick={handleCartDisplayed}>
             <i className="material-icons">shopping_cart</i>
             {
-                quantity ? <span className="cart-quantity">{quantity}</span> : null
+                quantity ? <span className="cart-quantity-value">{quantity}</span> : null
             }
             
         </div>
