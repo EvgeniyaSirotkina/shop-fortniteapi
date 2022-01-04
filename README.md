@@ -6,7 +6,7 @@ To run and use this project you need to have a api key. To [get the api key](htt
 
 After you get api key you should create in root folder `.env.local` file and add one environment variable: `REACT_APP_API_KEY=[YOUR_APIKEY]`. [Read more](https://create-react-app.dev/docs/adding-custom-environment-variables/) about adding custom environment variables.
 
-Link: [React Ahop App](https://evgeniyasirotkina.github.io/shop-fortniteapi/)
+Link: [React Shop App](https://evgeniyasirotkina.github.io/shop-fortniteapi/)
 ![изображение](https://user-images.githubusercontent.com/47915167/148110404-011ae51a-0587-4fd6-8286-1be03cebd11c.png)
 
 
