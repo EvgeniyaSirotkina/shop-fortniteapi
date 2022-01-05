@@ -7,7 +7,7 @@ const CartIcon = (props) => {
             {
                 quantity ? <span className="cart-quantity-value">{quantity}</span> : null
             }
-            
+
         </div>
     );
 }

@@ -1,4 +1,4 @@
-const goodsItem = (props) => {
+const GoodsItem = (props) => {
     const { goodsItem, price, addToCart = Function.prototype } = props;
 
     return goodsItem && (
@@ -30,4 +30,4 @@ const goodsItem = (props) => {
     )
 }
 
-export default goodsItem;
+export default GoodsItem;

@@ -107,7 +107,7 @@ const Shop = () => {
 
     return (
         <main className='container content'>
-            { alertName && <Alert name={alertName} closeAlert={closeAlert} /> }
+            {alertName && <Alert name={alertName} closeAlert={closeAlert} />}
             {
                 !isCartDisplayed
                     ? <CartIcon quantity={getNumberOfPurchases()} handleCartDisplayed={handleCartDisplayed} />
