@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { API_KEY, API_URL } from '../config';
 import Preloader from './Preloader';
 import GoodsList from './GoodsList';
@@ -6,88 +6,16 @@ import CartIcon from './CartIcon';
 import CartList from './CartList';
 import Alert from './Alert';
 
+import { ShopContext } from '../context';
+
 const Shop = () => {
-    const [goods, setGoods] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [orderList, setOrderList] = useState([]);
-    const [isCartDisplayed, setIsCartDisplayed] = useState(false);
-    const [alertName, setAlertName] = useState('');
 
-    const handleCartDisplayed = () => {
-        setIsCartDisplayed(!isCartDisplayed);
-    }
-
+    const { goods, isLoaded, isCartDisplayed, orderList, alertName, getGoods } = useContext(ShopContext);
     const getNumberOfPurchases = () => {
         return orderList.map(item => item.quantity).reduce((acc, el) => acc + el, 0);
     }
 
-    const addToCart = (item) => {
-        const itemIndex = orderList.findIndex(
-            (orderItem) => orderItem.id === item.id
-        );
-
-        if (itemIndex < 0) {
-            const newItem = {
-                ...item,
-                quantity: 1,
-            };
-            setOrderList([...orderList, newItem]);
-        } else {
-            const newOrder = orderList.map((orderItem, index) => {
-                if (index === itemIndex) {
-                    return {
-                        ...orderItem,
-                        quantity: orderItem.quantity + 1,
-                    };
-                } else {
-                    return orderItem;
-                }
-            });
-
-            setOrderList(newOrder);
-        }
-        setAlertName(item.name);
-    }
-
-    const removeFromCart = (id) => {
-        setOrderList(orderList.filter(item => item.id !== id));
-    }
-
-    const incQuantity = (id) => {
-        const newOrder = orderList.map((el) => {
-            if (el.id === id) {
-                const newQuantity = el.quantity + 1;
-                return {
-                    ...el,
-                    quantity: newQuantity,
-                };
-            } else {
-                return el;
-            }
-        });
-        setOrderList(newOrder);
-    }
-
-    const decQuantity = (id) => {
-        const newOrder = orderList.map((el) => {
-            if (el.id === id) {
-                const newQuantity = el.quantity - 1;
-                return {
-                    ...el,
-                    quantity: newQuantity > 0 ? newQuantity : 0,
-                };
-            } else {
-                return el;
-            }
-        });
-        setOrderList(newOrder.filter(item => item.quantity > 0));
-    }
-
-    const closeAlert = (id) => {
-        setAlertName('');
-    }
-
-    useEffect(function getGoods() {
+    useEffect(function getGoods1() {
         fetch(API_URL, {
             headers: {
                 'Authorization': API_KEY
@@ -95,33 +23,23 @@ const Shop = () => {
         })
             .then(response => response.json())
             .then(data => {
-                data.shop && setGoods(data.shop);
-                setIsLoaded(true);
+                data.shop && getGoods(data);
             })
             .catch(error => {
                 console.log(error);
-                setGoods([]);
-                setIsLoaded(false);
             })
+        // eslint-disable-next-line
     }, []);
 
     return (
         <main className='container content'>
-            {alertName && <Alert name={alertName} closeAlert={closeAlert} />}
+            {alertName && <Alert />}
             {
                 !isCartDisplayed
-                    ? <CartIcon quantity={getNumberOfPurchases()} handleCartDisplayed={handleCartDisplayed} />
-                    : <CartList
-                        orderList={orderList}
-                        handleCartDisplayed={handleCartDisplayed}
-                        removeFromCart={removeFromCart}
-                        incQuantity={incQuantity}
-                        decQuantity={decQuantity}
-                    />
+                    ? <CartIcon quantity={getNumberOfPurchases()} />
+                    : <CartList orderList={orderList} />
             }
-            {
-                !isLoaded ? <Preloader /> : <GoodsList goodsList={goods} addToCart={addToCart} />
-            }
+            {!isLoaded ? <Preloader /> : <GoodsList goodsList={goods} />}
         </main>
     );
 }

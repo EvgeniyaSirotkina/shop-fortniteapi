@@ -1,12 +1,15 @@
 import Header from './cmponents/Header';
 import Footer from './cmponents/Footer';
 import Shop from './cmponents/Shop';
+import { ContextProvider } from './context';
 
 const App = () => {
   return (
     <>
       <Header />
-      <Shop />
+      <ContextProvider>
+        <Shop />
+      </ContextProvider>
       <Footer />
     </>
   );
