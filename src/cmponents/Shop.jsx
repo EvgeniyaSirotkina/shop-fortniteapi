@@ -23,7 +23,7 @@ const Shop = () => {
         return orderList.map(item => item.quantity).reduce((acc, el) => acc + el, 0);
     }
 
-    useEffect(function getGoods1() {
+    useEffect(function getGoods() {
         fetch(API_URL, {
             headers: {
                 'Authorization': API_KEY
