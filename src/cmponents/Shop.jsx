@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { API_KEY, API_URL } from '../config';
+
 import Preloader from './Preloader';
 import GoodsList from './GoodsList';
 import CartIcon from './CartIcon';
@@ -10,7 +11,14 @@ import { ShopContext } from '../context';
 
 const Shop = () => {
 
-    const { goods, isLoaded, isCartDisplayed, orderList, alertName, getGoods } = useContext(ShopContext);
+    const {
+        isLoaded,
+        isCartDisplayed,
+        orderList,
+        alertName,
+        setGoods
+    } = useContext(ShopContext);
+
     const getNumberOfPurchases = () => {
         return orderList.map(item => item.quantity).reduce((acc, el) => acc + el, 0);
     }
@@ -23,7 +31,7 @@ const Shop = () => {
         })
             .then(response => response.json())
             .then(data => {
-                data.shop && getGoods(data);
+                data.shop && setGoods(data.shop);
             })
             .catch(error => {
                 console.log(error);
@@ -37,9 +45,9 @@ const Shop = () => {
             {
                 !isCartDisplayed
                     ? <CartIcon quantity={getNumberOfPurchases()} />
-                    : <CartList orderList={orderList} />
+                    : <CartList />
             }
-            {!isLoaded ? <Preloader /> : <GoodsList goodsList={goods} />}
+            {!isLoaded ? <Preloader /> : <GoodsList />}
         </main>
     );
 }

@@ -3,10 +3,11 @@ import { ShopContext } from '../context';
 
 import CartItem from './CartItem'
 
-const CartList = (props) => {
-    const { orderList = [] } = props;
-
-    const { removeFromCart, handleCartDisplayed, incQuantity, decQuantity } = useContext(ShopContext);
+const CartList = () => {
+    const {
+        orderList = [],
+        toggleCart,
+    } = useContext(ShopContext);
 
     const totalPrice = orderList.reduce((sum, el) => {
         return sum + el.price * el.quantity;
@@ -19,9 +20,6 @@ const CartList = (props) => {
                 orderList.map((item) => (
                     <CartItem
                         key={item.id}
-                        removeFromCart={removeFromCart}
-                        incQuantity={incQuantity}
-                        decQuantity={decQuantity}
                         {...item}
                     />
                 ))
@@ -36,7 +34,7 @@ const CartList = (props) => {
             </li>
             <i
                 className='material-icons cart-close'
-                onClick={handleCartDisplayed}
+                onClick={toggleCart}
             >
                 close
             </i>

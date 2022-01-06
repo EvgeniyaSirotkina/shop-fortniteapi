@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import { reducer } from './reducer';
-import { 
-    GET_GOODS,
+import {
+    SET_GOODS,
     ADD_TO_CART,
     REMOVE_FROM_CART,
     INC_QUANTITY,
@@ -23,31 +23,31 @@ const initialState = {
 export const ContextProvider = ({ children }) => {
     const [value, dispatch] = useReducer(reducer, initialState);
 
-    value.getGoods = (data) => {
-        dispatch({ type: GET_GOODS, payload: { data } });
+    value.setGoods = (data) => {
+        dispatch({ type: SET_GOODS, payload: { data } });
     }
 
     value.addToCart = (item) => {
         dispatch({ type: ADD_TO_CART, payload: { item } });
     }
-    
+
     value.removeFromCart = (id) => {
         dispatch({ type: REMOVE_FROM_CART, payload: { id } });
     }
-    
+
     value.incQuantity = (id) => {
         dispatch({ type: INC_QUANTITY, payload: { id } });
     }
-    
+
     value.decQuantity = (id) => {
         dispatch({ type: DEC_QUANTITY, payload: { id } });
     }
-    
+
     value.closeAlert = () => {
         dispatch({ type: CLOSE_ALERT });
     }
-    
-    value.handleCartDisplayed = () => {
+
+    value.toggleCart = () => {
         dispatch({ type: TOGGLE_CART });
     }
 

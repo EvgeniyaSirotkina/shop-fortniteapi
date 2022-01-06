@@ -1,5 +1,5 @@
 import {
-    GET_GOODS,
+    SET_GOODS,
     ADD_TO_CART,
     REMOVE_FROM_CART,
     INC_QUANTITY,
@@ -10,10 +10,10 @@ import {
 
 export const reducer = (state, { type, payload }) => {
     switch (type) {
-        case GET_GOODS: 
+        case SET_GOODS: 
                 return {
                     ...state,
-                    goods: payload.data.shop,
+                    goods: payload.data,
                     isLoaded: true
                 }
         case ADD_TO_CART: {
